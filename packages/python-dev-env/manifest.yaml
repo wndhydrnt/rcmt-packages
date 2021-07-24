@@ -1,8 +1,8 @@
 name: python-dev-env
 actions:
-  merge:
-    selector: pyproject.toml
-    source: pyproject.toml
-  seed:
-    source: .gitignore
-    target: .gitignore
+  - merge:
+      selector: pyproject.toml
+      source: pyproject.toml
+  - seed:
+      source: .gitignore
+      target: .gitignore
