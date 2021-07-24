@@ -1,6 +1,6 @@
 log_level: info
 auto_merge: true
-dry_run: true
+dry_run: false
 
 yaml:
   explicit_start: true
