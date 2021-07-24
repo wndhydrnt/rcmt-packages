@@ -1,0 +1,3 @@
+match: github.com/wndhydrnt/+*
+name: python
+packages: ["python-dev-env"]

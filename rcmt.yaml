@@ -1,0 +1,6 @@
+log_level: info
+auto_merge: true
+dry_run: true
+
+yaml:
+  explicit_start: true
