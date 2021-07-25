@@ -12,8 +12,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - env:
-          RCMT_GIT_EMAIL: hydrantanderwand@gmail.com
-          RCMT_GIT_USERNAME: wndhydrnt
           RCMT_GITHUB_ACCESS_TOKEN: ${{ secrets.RCMT_GITHUB_ACCESS_TOKEN }}
           RCMT_GITHUB_USERNAME: wndhydrnt
         run: make apply

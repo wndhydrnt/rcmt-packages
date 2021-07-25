@@ -2,5 +2,9 @@ log_level: info
 auto_merge: true
 dry_run: false
 
+git:
+  user_name: wndhydrnt
+  user_email: hydrantanderwand@gmail.com
+
 yaml:
   explicit_start: true
