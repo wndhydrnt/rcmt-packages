@@ -1,3 +1,4 @@
-match: github.com/wndhydrnt/.+
+match:
+  repository: github.com/wndhydrnt/.+
 name: python
 packages: ["python-dev-env"]
