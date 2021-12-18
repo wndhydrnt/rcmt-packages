@@ -6,4 +6,4 @@ apply:
 	-e "RCMT_GITHUB_USERNAME=$(RCMT_GITHUB_USERNAME)" \
 	--rm \
 	-v "$(PWD):/opt/work" \
-	wandhydrant/rcmt:main run --config /opt/work/rcmt.yaml --packages /opt/work/packages /opt/work/matcher.yaml
+	wandhydrant/rcmt:main run --config /opt/work/rcmt.yaml --packages /opt/work/packages /opt/work/run.py

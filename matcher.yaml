@@ -1,7 +1,0 @@
-auto_merge: true
-match:
-  files:
-    - pyproject.toml
-  repository: github.com/wndhydrnt/.+
-name: python
-packages: ["python-dev-env"]
