@@ -2,7 +2,7 @@ import os.path
 import subprocess
 import sys
 
-import yaml
+from ruamel.yaml import YAML
 from rcmt.package import Manifest
 from rcmt.package.action import Merge, Seed, Action
 
@@ -13,8 +13,9 @@ class Dependabot(Action):
         if os.path.exists(cfg_path) is False:
             return None
 
+        yaml = YAML()
         with open(cfg_path, "r") as cfg_file:
-            cfg = yaml.load(cfg_file, Loader=yaml.FullLoader)
+            cfg = yaml.load(cfg_file)
 
         if "updates" not in cfg:
             return None
@@ -38,7 +39,7 @@ class Poetry(Action):
         args = ["/home/rcmt/.local/bin/poetry", "update", "black", "isort", "mypy"]
         result = subprocess.run(args, cwd=repo_path, stdout=sys.stdout, stderr=sys.stderr)
         if result.returncode != 0:
-            raise RuntimeError(f'Command "poertry update" exited with code {result.returncode}')
+            raise RuntimeError(f'Command "poetry update" exited with code {result.returncode}')
 
 
 with Manifest(name="python-dev-env") as manifest:

@@ -6,6 +6,7 @@ authors = ["Your Name <you@example.com>"]
 
 [tool.poetry.dependencies]
 python = "^3.9"
+"ruamel.yaml" = "^0.17.17"
 
 [tool.poetry.dev-dependencies]
 rcmt = "~0"
