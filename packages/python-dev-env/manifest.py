@@ -2,7 +2,7 @@ import os.path
 import subprocess
 import sys
 
-from ruamel.yaml import YAML
+import yaml
 from rcmt.package import Manifest
 from rcmt.package.action import Merge, Seed, Action
 
@@ -13,9 +13,8 @@ class Dependabot(Action):
         if os.path.exists(cfg_path) is False:
             return None
 
-        yaml = YAML()
         with open(cfg_path, "r") as cfg_file:
-            cfg = yaml.load(cfg_file)
+            cfg = yaml.load(cfg_file, Loader=yaml.FullLoader)
 
         if "updates" not in cfg:
             return None
