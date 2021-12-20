@@ -13,22 +13,23 @@ class Dependabot(Action):
         if os.path.exists(cfg_path) is False:
             return None
 
-        with open(cfg_path, "w") as cfg_file:
+        with open(cfg_path, "r") as cfg_file:
             cfg = yaml.load(cfg_file, Loader=yaml.FullLoader)
 
-            if "updates" not in cfg:
-                return None
+        if "updates" not in cfg:
+            return None
 
-            for entry in cfg["updates"]:
-                if entry["package-ecosystem"] != "pip":
-                    continue
+        for entry in cfg["updates"]:
+            if entry["package-ecosystem"] != "pip":
+                continue
 
-                entry["ignore"] = [
-                    {"dependency-name": "black"},
-                    {"dependency-name": "isort"},
-                    {"dependency-name": "mypy"},
-                ]
+            entry["ignore"] = [
+                {"dependency-name": "black"},
+                {"dependency-name": "isort"},
+                {"dependency-name": "mypy"},
+            ]
 
+        with open(cfg_path, "w") as cfg_file:
             yaml.dump(cfg, cfg_file)
 
 
