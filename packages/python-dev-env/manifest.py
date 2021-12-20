@@ -35,11 +35,10 @@ class Dependabot(Action):
 
 class Poetry(Action):
     def apply(self, pkg_path: str, repo_path: str, tpl_data: dict) -> None:
-        for tool in ["black", "isort", "mypy"]:
-            args = ["/home/rcmt/.local/bin/poetry", "update", tool]
-            result = subprocess.run(args, cwd=repo_path, stdout=sys.stdout, stderr=sys.stderr)
-            if result.returncode != 0:
-                raise RuntimeError(f'Command "{" ".join(args)}" exited with code {result.returncode}')
+        args = ["/home/rcmt/.local/bin/poetry", "update", "black", "isort", "mypy"]
+        result = subprocess.run(args, cwd=repo_path, stdout=sys.stdout, stderr=sys.stderr)
+        if result.returncode != 0:
+            raise RuntimeError(f'Command "poertry update" exited with code {result.returncode}')
 
 
 with Manifest(name="python-dev-env") as manifest:
