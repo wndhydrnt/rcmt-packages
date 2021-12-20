@@ -1,6 +1,48 @@
+import os.path
+import subprocess
+import sys
+
+import yaml
 from rcmt.package import Manifest
-from rcmt.package.action import Own, Merge, Seed
+from rcmt.package.action import Merge, Seed, Action
+
+
+class Dependabot(Action):
+    def apply(self, pkg_path: str, repo_path: str, tpl_data: dict) -> None:
+        cfg_path = os.path.join(repo_path, ".github", "dependabot.yml")
+        if os.path.exists(cfg_path) is False:
+            return None
+
+        with open(cfg_path, "w") as cfg_file:
+            cfg = yaml.load(cfg_file, Loader=yaml.FullLoader)
+
+            if "updates" not in cfg:
+                return None
+
+            for entry in cfg["updates"]:
+                if entry["package-ecosystem"] != "pip":
+                    continue
+
+                entry["ignore"] = [
+                    {"dependency-name": "black"},
+                    {"dependency-name": "isort"},
+                    {"dependency-name": "mypy"},
+                ]
+
+            yaml.dump(cfg, cfg_file)
+
+
+class Poetry(Action):
+    def apply(self, pkg_path: str, repo_path: str, tpl_data: dict) -> None:
+        for tool in ["black", "isort", "mypy"]:
+            args = ["/home/rcmt/.local/bin/poetry", "update", tool]
+            result = subprocess.run(args, cwd=repo_path, stdout=sys.stdout, stderr=sys.stderr)
+            if result.returncode != 0:
+                raise RuntimeError(f'Command "{" ".join(args)}" exited with code {result.returncode}')
+
 
 with Manifest(name="python-dev-env") as manifest:
     manifest.add_action(Merge(selector="pyproject.toml", source="pyproject.toml"))
+    manifest.add_action(Dependabot())
+    manifest.add_action(Poetry())
     manifest.add_action(Seed(target=".gitignore", source=".gitignore"))
