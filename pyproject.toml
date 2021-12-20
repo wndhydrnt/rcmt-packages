@@ -1,15 +1,32 @@
+[build-system]
+requires = [ "poetry-core>=1.0.0",]
+build-backend = "poetry.core.masonry.api"
+
 [tool.poetry]
 name = "rcmt-packages"
 version = "0.1.0"
 description = ""
-authors = ["Your Name <you@example.com>"]
+authors = [ "Your Name <you@example.com>",]
+
+[tool.black]
+line-length = 88
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+
+[tool.mypy]
+ignore_missing_imports = true
 
 [tool.poetry.dependencies]
 python = "^3.9"
 
 [tool.poetry.dev-dependencies]
 rcmt = "~0"
+black = "21.6b0"
+isort = "5.9.1"
+mypy = "0.910"
 
-[build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+[tool.poetry.dev-dependencies.coverage]
+extras = [ "toml",]
+version = "5.5"
